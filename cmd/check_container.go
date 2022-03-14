@@ -23,6 +23,7 @@ import (
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
+	b64 "encoding/base64"
 )
 
 var submit bool
@@ -232,7 +233,7 @@ var checkContainerCmd = &cobra.Command{
 
 			logFileArtifact := pyxis.Artifact{
 				CertProject: projectId,
-				Content:     string(logFileBytes),
+				Content:     b64.StdEncoding.EncodeToString(logFileBytes),
 				ContentType: http.DetectContentType(logFileBytes),
 				Filename:    logFileName,
 				FileSize:    logFileInfo.Size(),
